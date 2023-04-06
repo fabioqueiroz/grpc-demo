@@ -1,0 +1,37 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcGreeter.Product";
+
+package product;
+
+service ProductService {
+	rpc Addproduct (Product) returns (StatusMessage);
+}
+
+message Product {
+	string id = 1;
+	string name = 2;
+	DecimalValue price = 3;
+}
+
+message StatusMessage {
+	ReadingStatus Success = 1;
+	string Message = 2;
+	repeated Product ProductList = 3;
+}
+
+enum ReadingStatus {
+	Unknown = 0;
+	Success = 1;
+	Failure = 2;
+}
+
+message DecimalValue {
+
+    // Whole units part of the amount
+    int64 units = 1;
+
+    // Nano units of the amount (10^-9)
+    // Must be same sign as units
+    sfixed32 nanos = 2;
+}
